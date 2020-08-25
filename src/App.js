@@ -16,9 +16,12 @@ var text=e.target.value;
 var {list}=this.state;  
 
 const result=list.filter(item=>{
-  const lowerItem= item.toLocaleLowerCase();
   const lowerText= text.toLocaleLowerCase();
-  return lowerItem.substring(0,lowerText.length).indexOf(lowerText) !== -1
+  const lowerItem= item.toLocaleLowerCase();
+  // return lowerItem.substring(0,lowerText.length).indexOf(lowerText) !== -1
+    return lowerItem.indexOf(lowerText) === 0
+
+
 })
 this.setState({
 result,text
