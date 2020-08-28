@@ -1,49 +1,37 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import Login from "./Screen/Login/App";
+import Dashboard from "./Screen/Dashboard/App";
+import AddForm from "./Screen/AddForm/App";
+import Container from "./components/Container/Container";
 
-class App extends Component {
-  constructor(){
+export default class App extends Component {
+  constructor() {
     super();
-    this.state={
-      list: ['kabab','karai','biryani','pizzz','tika'],
-      result: []
-    }
-    this.search=this.search.bind(this);
+    this.state = {
+      user: false,
+    };
+    this.onLogin = this.onLogin.bind(this);
   }
 
-  search(e){
-console.log("****this",e.target.value);
-var text=e.target.value;
-var {list}=this.state;  
+  onLogin(user) {
+    console.log("user jo login hoa", user);
+    this.setState({ user: true });
+  }
 
-const result=list.filter(item=>{
-  const lowerText= text.toLocaleLowerCase();
-  const lowerItem= item.toLocaleLowerCase();
-  // return lowerItem.substring(0,lowerText.length).indexOf(lowerText) !== -1
-    return lowerItem.indexOf(lowerText) === 0
-
-
-})
-this.setState({
-result,text
-})
-}
   render() {
-    const {list,result,text}=this.state;
-    // const items = result.length ? result :list
-    const items = text ? result :list
+    const { user } = this.state;
     return (
       <div>
-          <input type="text" placeholder="Search list" onChange={this.search}/>
-        <ul>
-          
-          {items.map((el,index)=>
-            <li key={index}>{el}</li>
-            )}
-          </ul>
+        <Container>
+
+
+        {!user && <Login text="Hello Pakistan" onLogin={this.onLogin} />}
+        {user && <Dashboard />}
+        <AddForm />
+
+        </Container>
 
       </div>
     );
   }
 }
-
-export default App;
